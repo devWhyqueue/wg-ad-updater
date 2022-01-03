@@ -19,7 +19,9 @@ class WgRequestUpdater:
         self.driver.get(WgRequestUpdater.WG_REQUEST_URL)
         self._cookie_consent()
         self._login(username, password)
-        self.driver.find_element(By.ID, "update_request").click()
+        self.driver.find_element(By.ID, "update_view_request").click()
+        WebDriverWait(self.driver, 3).until(ec.visibility_of_element_located(
+            (By.CSS_SELECTOR, "#main_column > div:nth-child(3) > div:nth-child(2) > a")))
         log.info("WG Request successfully updated.")
 
     def _cookie_consent(self):
