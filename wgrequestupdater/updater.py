@@ -15,7 +15,6 @@ class WgRequestUpdater:
     def __init__(self, driver: WebDriver):
         self.driver = driver
 
-    # TODO: Sometimes does not update
     def update(self, username: str, password: str):
         self.driver.get(WgRequestUpdater.WG_REQUEST_URL)
         self._cookie_consent()
