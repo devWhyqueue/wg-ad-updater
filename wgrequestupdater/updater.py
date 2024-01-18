@@ -1,4 +1,5 @@
 import logging
+from time import sleep
 
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -19,9 +20,10 @@ class WgRequestUpdater:
         self.driver.get(WgRequestUpdater.WG_REQUEST_URL)
         self._cookie_consent()
         self._login(username, password)
-        self.driver.find_element(By.ID, "update_view_request").click()
-        WebDriverWait(self.driver, 3).until(ec.visibility_of_element_located(
-            (By.CSS_SELECTOR, "#main_column > div:nth-child(3) > div:nth-child(2) > a")))
+        sleep(3)
+        WebDriverWait(self.driver, 3).until(ec.presence_of_element_located((By.ID, "update_view_request_nav")))
+        self.driver.find_element(By.ID, "update_view_request_nav").click()
+        # TODO: Close modal
         log.info("WG Request successfully updated.")
 
     def _cookie_consent(self):
@@ -34,10 +36,11 @@ class WgRequestUpdater:
 
     def _login(self, username: str, password: str):
         try:
-            self.driver.find_element(By.CSS_SELECTOR,
-                                     "#headbar_wrapper > div.col-sm-8.noprint > a:nth-child(3)").click()
-            self.driver.find_element(By.NAME, "login_email_username").send_keys(username)
-            self.driver.find_element(By.NAME, "login_password").send_keys(password)
+            self.driver.find_element(By.CSS_SELECTOR, ".orange_text_link[onClick^='fireLogin']").click()
+            (WebDriverWait(self.driver, 3)
+             .until(ec.element_to_be_clickable((By.CSS_SELECTOR, "form [name='login_email_username']"))))
+            self.driver.find_element(By.CSS_SELECTOR, "form [name='login_email_username']").send_keys(username)
+            self.driver.find_element(By.CSS_SELECTOR, "form [name='login_password']").send_keys(password)
             self.driver.find_element(By.ID, "login_submit").click()
         except NoSuchElementException:
             # No login button present, so user is already logged in
