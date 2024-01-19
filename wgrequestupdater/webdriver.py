@@ -1,20 +1,19 @@
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 
 def web_driver(exec_path: str = None) -> WebDriver:
     options = Options()
     options.add_argument("--headless")
-    options.add_argument("--width=1920")
-    options.add_argument("--height=1080")
+    options.add_argument("--window-size=1920,1080")  # Adjusting for Chromium
 
     if exec_path:
         service = Service(exec_path)
-        driver = webdriver.Firefox(service=service, options=options)
+        driver = webdriver.Chrome(service=service, options=options)
     else:
-        driver = webdriver.Firefox(options=options)
+        driver = webdriver.Chrome(options=options)
 
     driver.implicitly_wait(3)
     return driver
