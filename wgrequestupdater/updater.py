@@ -21,9 +21,10 @@ class WgRequestUpdater:
         self._cookie_consent()
         self._login(username, password)
         sleep(3)
-        WebDriverWait(self.driver, 3).until(ec.presence_of_element_located((By.ID, "update_view_request_nav")))
-        self.driver.find_element(By.ID, "update_view_request_nav").click()
-        # TODO: Close modal
+        self.driver.find_element(By.ID, "update_request_nav").click()
+        sleep(3)
+        xpath = "//div[@id='wgg_plus_promo_modal']//a[@href='/wgg-plus-info.html']"
+        self.driver.find_element(By.XPATH, xpath).click()
         log.info("WG Request successfully updated.")
 
     def _cookie_consent(self):

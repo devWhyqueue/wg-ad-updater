@@ -5,7 +5,7 @@ from time import sleep
 from click import command, argument
 from selenium.common.exceptions import WebDriverException
 
-from wgrequestupdater.webdriver import chrome_driver
+from wgrequestupdater.webdriver import web_driver
 
 logging_config = str(files('config').joinpath('logging.ini'))
 logging.config.fileConfig(logging_config, disable_existing_loggers=False)
@@ -19,7 +19,7 @@ def cli(username, password):
     from wgrequestupdater.updater import WgRequestUpdater
     log.info("WG Request updater successfully started.")
     while True:
-        webdriver = chrome_driver()
+        webdriver = web_driver()
         req = WgRequestUpdater(webdriver)
         try:
             req.update(username, password)
