@@ -1,6 +1,6 @@
-# WG Request Updater
+# WG Ad Updater
 
-Keeps your WG Request always at the top of the search hit list!
+Keeps your WG Ad always at the top of the search hit list!
 
 # Prerequisites
 
@@ -27,12 +27,12 @@ poetry install
 Execute main.py as a background process and log to file:
 
 ```
-nohup python3 wgrequestupdater/main.py {USERNAME} {PASSWORD} >> wgrequestupdater-info.log 2>> wgrequestupdater-error.
+nohup python3 wgadupdater/main.py {USERNAME} {PASSWORD} >> wgadupdater-info.log 2>> wgadupdater-error.
 log &
 ```
 
 To stop:
 
 ```
-pkill -f wgrequestupdater
+pkill -f wgadupdater
 ```
