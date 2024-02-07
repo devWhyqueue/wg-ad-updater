@@ -10,20 +10,20 @@ from selenium.webdriver.support.wait import WebDriverWait
 log = logging.getLogger(__name__)
 
 
-class WgRequestUpdater:
-    WG_REQUEST_URL = "https://www.wg-gesucht.de/gesuch-bearbeiten.html?action=update_request&request_id=9060658"
+class WgAdUpdater:
+    WG_AD_URL = "https://www.wg-gesucht.de/angebot-bearbeiten.html?action=update_offer&offer_id=10800548"
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
 
     def update(self, username: str, password: str):
-        self.driver.get(WgRequestUpdater.WG_REQUEST_URL)
+        self.driver.get(WgAdUpdater.WG_AD_URL)
         self._cookie_consent()
         self._login(username, password)
         sleep(3)
-        self.driver.find_element(By.ID, "update_request_nav").click()
+        self.driver.find_element(By.ID, "update_offer_nav").click()
         sleep(3)
-        xpath = "//div[@id='wgg_plus_promo_modal']//a[@href='/wgg-plus-info.html']"
+        xpath = "//a[@data-campaign_click_source='update_ad']"
         self.driver.find_element(By.XPATH, xpath).click()
         log.info("WG Request successfully updated.")
 

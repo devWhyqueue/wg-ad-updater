@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 def web_driver(exec_path: str = None) -> WebDriver:
     options = Options()
     options.add_argument("--headless=new")
-    options.add_argument("--window-size=1920,1080")  # Adjusting for Chromium
+    options.add_argument("--window-size=1920,1080")
 
     if exec_path:
         service = Service(exec_path)

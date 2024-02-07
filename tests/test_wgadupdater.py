@@ -1,4 +1,4 @@
-from wgrequestupdater import __version__
+from wgadupdater import __version__
 
 
 def test_version():
